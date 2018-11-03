@@ -28,13 +28,13 @@ chain, hash, socket, ini file reader, base64 encode / decode,
 url encode / decode, fasttimer etc. 
 commit version: %{CommitVersion}
 
-#%package devel
-#Summary: Development header file
-#Requires: %{name}%{?_isa} = %{version}-%{release}
+%package devel
+Summary: Development header file
+Requires: %{name}%{?_isa} = %{version}-%{release}
 
-#%description devel
-#This package provides the header files of libfastcommon
-#commit version: %{CommitVersion}
+%description devel
+This package provides the header files of libfastcommon
+commit version: %{CommitVersion}
 
 
 %prep
@@ -66,10 +66,10 @@ rm -rf /usr/include/fastcommon/*
 %files
 %defattr(-,root,root,-)
 /usr/lib64/libfastcommon.so*
-#/usr/lib/libfastcommon.so*
+/usr/lib/libfastcommon.so*
 
-#%files devel
-#%defattr(-,root,root,-)
+%files devel
+%defattr(-,root,root,-)
 /usr/include/fastcommon/*
 
 %changelog
