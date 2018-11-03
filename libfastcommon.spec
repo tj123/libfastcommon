@@ -18,20 +18,23 @@ BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 #BuildRequires: perl %{_includedir}/linux/if.h gettext
 Requires: %__cp %__mv %__chmod %__grep %__mkdir %__install %__id
 
+BuildRequires: gcc
+BuildRequires: perl
+
 %description
-c common functions library extracted from my open source projects FastDFS.
+c common functions library extracted from open source projects FastDFS.
 this library is very simple and stable. functions including: string, logger,
 chain, hash, socket, ini file reader, base64 encode / decode,
 url encode / decode, fasttimer etc. 
 commit version: %{CommitVersion}
 
-%package devel
-Summary: Development header file
-Requires: %{name}%{?_isa} = %{version}-%{release}
+#%package devel
+#Summary: Development header file
+#Requires: %{name}%{?_isa} = %{version}-%{release}
 
-%description devel
-This package provides the header files of libfastcommon
-commit version: %{CommitVersion}
+#%description devel
+#This package provides the header files of libfastcommon
+#commit version: %{CommitVersion}
 
 
 %prep
@@ -45,21 +48,28 @@ rm -rf %{buildroot}
 DESTDIR=$RPM_BUILD_ROOT ./make.sh install
 
 %post
+cat > /etc/ld.so.conf.d/libfastcommon.conf << EOF
+/usr/lib64
+EOF
+ldconfig
 
 %preun
+rm -rf /etc/ld.so.conf.d/libfastcommon.conf
 
 %postun
+rm -rf /usr/lib64/libfastcommon.so*
+rm -rf /usr/include/fastcommon/*
 
 %clean
-rm -rf %{buildroot}
+ rm -rf %{buildroot}
 
 %files
 %defattr(-,root,root,-)
 /usr/lib64/libfastcommon.so*
-/usr/lib/libfastcommon.so*
+#/usr/lib/libfastcommon.so*
 
-%files devel
-%defattr(-,root,root,-)
+#%files devel
+#%defattr(-,root,root,-)
 /usr/include/fastcommon/*
 
 %changelog
