@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 tmp_src_filename=fast_check_bits.c
 cat <<EOF > $tmp_src_filename
 #include <stdio.h>
@@ -70,7 +72,7 @@ if [ "$uname" = "Linux" ]; then
   OS_NAME=OS_LINUX
   IOEVENT_USE=IOEVENT_USE_EPOLL
 elif [ "$uname" = "FreeBSD" ] || [ "$uname" = "Darwin" ]; then
-  OS_NAME=OS_FREEBSD 
+  OS_NAME=OS_FREEBSD
   IOEVENT_USE=IOEVENT_USE_KQUEUE
   if [ "$uname" = "Darwin" ]; then
     CFLAGS="$CFLAGS -DDARWIN"

@@ -8,3 +8,7 @@
 /src/libfastcommon.so
 /src/Makefile
 .vscode/
+.idea/
+.vs/
+.project
+.settings/
